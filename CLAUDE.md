@@ -7,37 +7,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 bun install    # Install dependencies
 bun dev        # Run src/index.ts
-bun test       # Run tests (Bun's built-in test runner)
+bun test       # Run all tests (Bun's built-in test runner)
+bun lint       # Lint with ESLint + typescript-eslint
 ```
 
 ## Architecture
 
 TypeScript project using Bun runtime, focused on design pattern implementations.
 
-### Source Structure
-
 - `src/index.ts` - Main entry point
 - `src/classes.ts` - Class definitions (e.g., Dog)
-- `src/utils.ts` - Utility functions
-- `src/abstract-factory/` - Abstract Factory pattern implementation
-
-### Abstract Factory Pattern (`src/abstract-factory/`)
-
-Implements a game-themed Abstract Factory with Spanish naming:
-
-**Interfaces:**
-- `Personaje` - Character contract (atacar, getVida, getFuerza, getVelocidad)
-- `Arma` - Weapon contract (usar, getDano, getAlcance, getDurabilidad)
-- `MundoFactory` - Factory contract (crearArma, crearPersonaje)
-
-**Implementations:**
-- `Guerrero` - Warrior character
-- `Espada` - Sword weapon
-- `Videojuego` - Client that uses the factory
+- Tests live alongside source files as `*.test.ts`
 
 ## Code Conventions
 
-- ES modules with `.js` extensions in imports
-- `export default` for classes and interfaces
-- Private members with getter methods for encapsulation
-- Strict TypeScript (noUncheckedIndexedAccess, exactOptionalPropertyTypes, etc.)
+- ES modules with `.js` extensions in imports (even for `.ts` files)
+- `export default` for classes
+- Separate `export type` for type definitions
+- Strict TypeScript (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, etc.)
+- Testing uses Bun's built-in runner (`bun:test`): `describe`, `test`, `expect`, `spyOn`
+- Husky pre-push hook runs tests before pushing

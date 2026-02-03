@@ -6,6 +6,7 @@
   "scripts": {
     "test": "bun test",
     "dev": "bun run src/index.ts",
+    "lint": "eslint src/",
     "prepare": "cd .. && husky"
   },
   "keywords": [],

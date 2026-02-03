@@ -1,6 +1,6 @@
-# Code
+# GRUPO-MAS-2026-01
 
-TypeScript project using Bun runtime.
+TypeScript project using Bun runtime for design pattern implementations.
 
 ## Requirements
 
@@ -17,8 +17,10 @@ curl -fsSL https://bun.sh/install | bash
 bun install
 ```
 
-## Run
+## Development
 
 ```bash
-bun dev
+bun dev          # Run the project
+bun test         # Run all tests
+bun lint         # Lint with ESLint
 ```
