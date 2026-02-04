@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 bun install    # Install dependencies
 bun dev        # Run src/index.ts
 bun test       # Run all tests (Bun's built-in test runner)
-bun lint       # Lint with ESLint + typescript-eslint
+bun lint       # Lint with ESLint + typescript-eslint + SonarJS rules
 ```
 
 ## Architecture
