@@ -1,13 +1,6 @@
-import AutomovilBuilder from "./taller1/builder/automovil.js";
+import Dog from "./classes.js";
 
-const auto = new AutomovilBuilder()
-  .conMotor("V8 4.0L")
-  .conColor("rojo")
-  .conLlantas("deportivas 18in")
-  .conSistemaSonido("Bose")
-  .conInteriores("cuero")
-  .conTechoSolar(true)
-  .conNavegacionGPS(true)
-  .build();
+const { name, age, bark } = new Dog(19, "Copito");
+console.log(`${name} is ${age} y/o`);
 
-console.log(auto);
+bark(3);
