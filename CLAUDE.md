@@ -13,11 +13,15 @@ bun lint       # Lint with ESLint + typescript-eslint + SonarJS rules
 
 ## Architecture
 
-TypeScript project using Bun runtime, focused on design pattern implementations.
+TypeScript project using Bun runtime, focused on design pattern implementations organized by taller (workshop).
 
 - `src/index.ts` - Main entry point
-- `src/classes.ts` - Class definitions (e.g., Dog)
+- `src/taller1/builder/` - Ejercicio 1: Builder pattern (class + functional)
+- `src/taller1/docs/` - Activity guide and proposal for taller 1
 - Tests live alongside source files as `*.test.ts`
+- Each taller gets its own folder: `src/taller1/`, `src/taller2/`, etc.
+- Each exercise gets a subfolder named after the pattern: `builder/`, `bridge/`, `mediator/`
+- Each taller has a `docs/` folder for guides and proposals
 
 ## Code Conventions
 
