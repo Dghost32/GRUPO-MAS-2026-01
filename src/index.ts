@@ -1,6 +1,13 @@
-import Dog from "./classes.js";
+import AutomovilBuilder from "./builder/automovil.js";
 
-const { name, age, bark } = new Dog(19, "Copito");
-console.log(`${name} is ${age} y/o`);
+const auto = new AutomovilBuilder()
+  .conMotor("V8 4.0L")
+  .conColor("rojo")
+  .conLlantas("deportivas 18in")
+  .conSistemaSonido("Bose")
+  .conInteriores("cuero")
+  .conTechoSolar(true)
+  .conNavegacionGPS(true)
+  .build();
 
-bark(3);
+console.log(auto);
