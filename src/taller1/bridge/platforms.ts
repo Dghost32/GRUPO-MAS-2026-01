@@ -13,18 +13,18 @@ abstract class Platform {
 
 export class Desktop extends Platform {
   sendAlert(): string {
-    return `Send ${this.notification.assignNotification()} Notification`;
+    return `Send Desktop ${this.notification.assignNotification()} Notification`;
   }
 }
 
 export class Mobile extends Platform {
   sendAlert(): string {
-    return `Send ${this.notification.assignNotification()} Notification`;
+    return `Send Mobile ${this.notification.assignNotification()} Notification`;
   }
 }
 
 export class Web extends Platform {
   sendAlert(): string {
-    return `Send ${this.notification.assignNotification()} Notification`;
+    return `Send Web ${this.notification.assignNotification()} Notification`;
   }
 }

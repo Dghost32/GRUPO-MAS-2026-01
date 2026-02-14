@@ -30,7 +30,7 @@ const warning = new WarningNotification();
 const confirmation = new ConfirmNotification();
 
 const generateAlerts = () => {
-  const allAlarms = {
+  return {
     DesktopMessageNotification: new Desktop(message),
     DesktopAlertNotification: new Desktop(alert),
     DesktopWarningNotification: new Desktop(warning),
@@ -46,4 +46,7 @@ const generateAlerts = () => {
   };
 };
 
-console.log(generateAlerts());
+const generatedAlerts = generateAlerts();
+Object.entries(generatedAlerts).forEach(([key, notification]) =>
+  console.log(`${key}: ${notification.sendAlert()}`),
+);
