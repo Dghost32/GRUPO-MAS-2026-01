@@ -11,20 +11,21 @@ export abstract class Platform {
   abstract sendNotification(): string;
 }
 
+// Refined abstraction
 export class Desktop extends Platform {
   sendNotification(): string {
-    return `Send Desktop ${this.notification.getNotificationType()} Notification`;
+    return `Send Desktop ${this.notification.getType()} Notification`;
   }
 }
 
 export class Mobile extends Platform {
   sendNotification(): string {
-    return `Send Mobile ${this.notification.getNotificationType()} Notification`;
+    return `Send Mobile ${this.notification.getType()} Notification`;
   }
 }
 
 export class Web extends Platform {
   sendNotification(): string {
-    return `Send Web ${this.notification.getNotificationType()} Notification`;
+    return `Send Web ${this.notification.getType()} Notification`;
   }
 }

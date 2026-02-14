@@ -69,31 +69,33 @@ El problema describe la creación de un objeto `Automóvil` con múltiples confi
 El problema presenta dos dimensiones independientes que varían por separado: el **tipo de notificación** (mensaje, alerta, advertencia, confirmación) y la **plataforma** (escritorio, móvil, web). El patrón **Bridge** desacopla estas dos jerarquías para que puedan evolucionar de forma independiente:
 
 - **Evita la explosión combinatoria**: sin Bridge se necesitarían N tipos x M plataformas clases (NotificacionMensajeWeb, NotificacionAlertaMovil, etc.). Con Bridge, solo N + M clases.
-- **Separa responsabilidades**: la abstracción (`Notificacion`) maneja la lógica del tipo, y la implementación (`Plataforma`) maneja cómo se muestra.
+- **Separa responsabilidades**: la abstracción (`Plataforma`) hace de capa de control a alto nivel, y la implementación (`Notificacion`) maneja cómo se muestra.
 - **Escalabilidad**: agregar una nueva plataforma o un nuevo tipo no requiere modificar las clases existentes.
 - **Flexibilidad en tiempo de ejecución**: se puede cambiar la plataforma de una notificación dinámicamente.
 
 ### Diagrama de clases
 
 ```
-┌──────────────────────┐         ┌─────────────────────┐
-│   <<abstract>>       │         │    <<interface>>     │
-│    Notificacion      │────────▶│     Plataforma      │
-├──────────────────────┤         ├─────────────────────┤
-│ # plataforma:        │         │ + mostrar(titulo:    │
-│     Plataforma       │         │   string, mensaje:   │
-├──────────────────────┤         │   string): void      │
-│ + enviar(): void     │         └─────────────────────┘
-└──────────────────────┘                   ▲
-         ▲                                 │
-         │                    ┌────────────┼────────────┐
-   ┌─────┴──────┐             │            │            │
-   │            │    ┌────────┴──┐  ┌──────┴────┐  ┌───┴──────────┐
-┌──┴────────┐ ┌┴────┴──────┐ │ Escritorio │  │   Movil   │  │     Web      │
-│  Mensaje  │ │   Alerta   │ │ Plataforma │  │ Plataforma│  │  Plataforma  │
-├───────────┤ ├────────────┤ ├────────────┤  ├───────────┤  ├──────────────┤
-│ +enviar() │ │ +enviar()  │ │ +mostrar() │  │ +mostrar()│  │  +mostrar()  │
-└───────────┘ └────────────┘ └────────────┘  └───────────┘  └──────────────┘
+                   ┌────────────────────────────────┐                                              ┌─────────────────────┐
+                   │   <<abstract>>                 │                                              │    <<interface>>    │
+                   │    Platform                    │                                              │     Notification    │
+                   ├────────────────────────────────┤                                              ├─────────────────────┤
+                   │ - notification                 │⟣───────────────────────────────────────────▶│ + getType(): string │
+                   ├────────────────────────────────┤                                              |                     |
+                   │ + sendNotification(): void     │                                              │                     │
+                   └────────────────────────────────┘                                              └─────────────────────┘
+                                     ▲                                                                          ▲
+                                     |                                                                          |
+                                     │            Refined abstractions                                          │        concrete implementations
+      ┌──────────────────────────────┼───────────────────────┐                          ┌────────────────┬──────┴────────┬───────────────┐
+      │                              │                       │                          │                │               │               │
+┌─────┴────────────────┐ ┌───────────┴──────────┐ ┌──────────┴───────────┐        ┌─────┴───────┐ ┌──────┴──────┐ ┌──────┴───────┐ ┌─────┴───────┐
+│       Desktop        │ │        Mobile        │ │         Web          │        │   Message   │ │    Alert    │ │     Web      │ │ Escritorio  │
+├──────────────────────┤ ├──────────────────────┤ ├──────────────────────┤        ├─────────────┤ ├─────────────┤ ├──────────────┤ ├─────────────┤
+│ ...                  │ │ ...                  │ │ ...                  │        │ ...         │ │ ...         │ │ ...          │ │ ...         │
+├──────────────────────┤ ├──────────────────────┤ ├──────────────────────┤        ├─────────────┤ ├─────────────┤ ├──────────────┤ ├─────────────┤
+│ + sendNotification() │ │ + sendNotification() │ │ + sendNotification() │        │ + getType() │ │ + getType() │ │ + getType()  │ │ + getType() │
+└──────────────────────┘ └──────────────────────┘ └──────────────────────┘        └─────────────┘ └─────────────┘ └──────────────┘ └─────────────┘
 ```
 
 ### Beneficios alineados con la rúbrica
@@ -155,8 +157,8 @@ El problema describe usuarios en una sala de chat que se envían mensajes entre 
 
 ## Resumen
 
-| Ejercicio | Tipo | Patrón | Justificación clave |
-|-----------|------|--------|---------------------|
-| 1. Personalización de automóviles | Creacional | **Builder** | Elimina constructores telescópicos, permite configuración paso a paso |
-| 2. Notificaciones x Plataformas | Estructural | **Bridge** | Desacopla dos dimensiones independientes, evita explosión de subclases |
-| 3. Chat grupal | Comportamiento | **Mediator** | Centraliza comunicación, elimina acoplamiento directo entre usuarios |
+| Ejercicio                         | Tipo           | Patrón       | Justificación clave                                                    |
+| --------------------------------- | -------------- | ------------ | ---------------------------------------------------------------------- |
+| 1. Personalización de automóviles | Creacional     | **Builder**  | Elimina constructores telescópicos, permite configuración paso a paso  |
+| 2. Notificaciones x Plataformas   | Estructural    | **Bridge**   | Desacopla dos dimensiones independientes, evita explosión de subclases |
+| 3. Chat grupal                    | Comportamiento | **Mediator** | Centraliza comunicación, elimina acoplamiento directo entre usuarios   |
