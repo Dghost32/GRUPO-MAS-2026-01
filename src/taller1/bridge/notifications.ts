@@ -1,29 +1,29 @@
 // Implementor
 export interface Notification {
-  assignNotification(): string;
+  getNotificationType(): string;
 }
 
 // Concrete implementations
 export class MessageNotification implements Notification {
-  assignNotification(): string {
+  getNotificationType(): string {
     return "Message";
   }
 }
 
 export class AlertNotification implements Notification {
-  assignNotification(): string {
+  getNotificationType(): string {
     return "Alert";
   }
 }
 
 export class WarningNotification implements Notification {
-  assignNotification(): string {
+  getNotificationType(): string {
     return "Warning";
   }
 }
 
 export class ConfirmNotification implements Notification {
-  assignNotification(): string {
+  getNotificationType(): string {
     return "Confirmation";
   }
 }
