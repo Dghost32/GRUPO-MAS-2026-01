@@ -24,7 +24,7 @@ const generateNotifications = (): Platform[] => {
   return result;
 };
 
-const generatedAlerts = generateNotifications();
-generatedAlerts.forEach((notification) => {
+const generatedNotifications = generateNotifications();
+generatedNotifications.forEach((notification) => {
   console.log(notification.sendNotification());
 });
