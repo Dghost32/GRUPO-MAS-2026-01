@@ -1,4 +1,4 @@
-export type AutomovilType = {
+export type Automovil = {
   readonly motor: string | undefined;
   readonly color: string | undefined;
   readonly llantas: string | undefined;
@@ -52,7 +52,7 @@ export default class AutomovilBuilder {
     return this;
   }
 
-  build(): AutomovilType {
+  build(): Automovil {
     return Object.freeze({
       motor: this.motor,
       color: this.color,
