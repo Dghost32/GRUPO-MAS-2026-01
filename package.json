@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "bun test",
-    "dev": "bun run src/index.ts",
-    "dev3": "bun run src/taller1/escenario3/index.ts",
-    "dev:bridge": "bun run src/bridge.ts",
+    "dev:builder": "bun run src/taller1/builder/index.ts",
+    "dev:bridge": "bun run src/taller1/bridge/index.ts",
+    "dev:mediator": "bun run src/taller1/mediator/index.ts",
     "lint": "eslint src/",
     "stryker": "stryker run",
     "prepare": "cd .. && husky"

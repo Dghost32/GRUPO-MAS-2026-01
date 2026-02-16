@@ -5,7 +5,7 @@ import {
   ConfirmNotification,
   MessageNotification,
   WarnNotification,
-} from "../notifications.js";
+} from "./notifications.js";
 
 describe("Notification implementation", () => {
   it("MessageNotification should return 'Message'", () => {

@@ -1,6 +1,6 @@
 // Primer caso
 
-import AutomovilBuilder from "./taller1/builder/automovil.js";
+import AutomovilBuilder from "./automovil.js";
 
 const auto = new AutomovilBuilder()
   .conMotor("V8 4.0L")

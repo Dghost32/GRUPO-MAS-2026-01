@@ -1,6 +1,6 @@
 import { describe, it, expect } from "bun:test";
-import { Desktop } from "../platforms.js";
-import { AlertNotification, MessageNotification } from "../notifications.js";
+import { Desktop } from "./platforms.js";
+import { AlertNotification, MessageNotification } from "./notifications.js";
 
 describe("Bridge integration", () => {
   it("Desktop & Message notification should work together", () => {
