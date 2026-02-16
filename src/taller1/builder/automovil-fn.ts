@@ -1,6 +1,6 @@
-import type { AutomovilType } from "./automovil.js";
+import type { Automovil } from "./automovil.js";
 
-export type { AutomovilType };
+export type { Automovil };
 
 type AutomovilBuilderFn = {
   conMotor(motor: string): AutomovilBuilderFn;
@@ -10,7 +10,7 @@ type AutomovilBuilderFn = {
   conInteriores(interiores: string): AutomovilBuilderFn;
   conTechoSolar(techoSolar: boolean): AutomovilBuilderFn;
   conNavegacionGPS(gps: boolean): AutomovilBuilderFn;
-  build(): AutomovilType;
+  build(): Automovil;
 };
 
 type MutableConfig = {
