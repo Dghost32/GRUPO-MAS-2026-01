@@ -1,5 +1,5 @@
-import type { ChatMediator } from "./chat-mediator.js";
-import type User from "./user.js";
+import type { ChatMediator } from "./chat-mediator.ts";
+import type User from "./user.ts";
 
 class ChatRoom implements ChatMediator {
   private users: User[] = [];
