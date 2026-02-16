@@ -3,8 +3,8 @@ import {
   ConfirmNotification,
   MessageNotification,
   WarnNotification,
-} from "./taller1/bridge/notifications.js";
-import { Desktop, Mobile, Platform, Web } from "./taller1/bridge/platforms.js";
+} from "./notifications.js";
+import { Desktop, Mobile, Platform, Web } from "./platforms.js";
 
 const platforms = [Desktop, Mobile, Web];
 const notifications = [
