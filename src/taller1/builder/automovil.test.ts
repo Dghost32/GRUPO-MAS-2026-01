@@ -1,7 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import AutomovilBuilder from "./automovil.js";
-import type { AutomovilType } from "./automovil.js";
-import createAutomovilBuilder from "./automovil-fn.js";
+import type { Automovil } from "./automovil.js";
 
 type Builder = {
   conMotor(motor: string): Builder;
@@ -11,13 +10,13 @@ type Builder = {
   conInteriores(interiores: string): Builder;
   conTechoSolar(techoSolar: boolean): Builder;
   conNavegacionGPS(gps: boolean): Builder;
-  build(): AutomovilType;
+  build(): Automovil;
 };
 
 function automovilBuilderSuite(name: string, create: () => Builder) {
   describe(name, () => {
     test("build() returns an automovil with default values when nothing is set", () => {
-      const auto: AutomovilType = create().build();
+      const auto: Automovil = create().build();
 
       expect(auto.motor).toBeUndefined();
       expect(auto.color).toBeUndefined();
@@ -94,7 +93,7 @@ function automovilBuilderSuite(name: string, create: () => Builder) {
       const auto = create().conColor("negro").build();
 
       expect(() => {
-        const mutable = auto as { -readonly [K in keyof AutomovilType]: AutomovilType[K] };
+        const mutable = auto as { -readonly [K in keyof Automovil]: Automovil[K] };
         mutable.color = "blanco";
       }).toThrow();
     });
@@ -111,4 +110,3 @@ function automovilBuilderSuite(name: string, create: () => Builder) {
 }
 
 automovilBuilderSuite("AutomovilBuilder (class)", () => new AutomovilBuilder());
-automovilBuilderSuite("AutomovilBuilder (functional)", () => createAutomovilBuilder());
