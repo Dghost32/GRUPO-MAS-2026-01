@@ -7,7 +7,7 @@
     "test": "bun test",
     "dev:builder": "bun run src/taller1/builder/index.ts",
     "dev:bridge": "bun run src/taller1/bridge/index.ts",
-    "dev:mediator": "bun run src/taller1/escenario3/index.ts",
+    "dev:mediator": "bun run src/taller1/mediator/index.ts",
     "lint": "eslint src/",
     "stryker": "stryker run",
     "prepare": "cd .. && husky"

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "bun:test";
-import { Desktop, Mobile, Web } from "../platforms.js";
-import type { Notification } from "../notifications.js";
+import { Desktop, Mobile, Web } from "./platforms.js";
+import type { Notification } from "./notifications.js";
 
 class MockNotification implements Notification {
   getType(): string {
