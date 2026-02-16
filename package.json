@@ -6,6 +6,7 @@
   "scripts": {
     "test": "bun test",
     "dev": "bun run src/index.ts",
+    "dev3": "bun run src/escenario3/index.ts",
     "dev:bridge": "bun run src/bridge.ts",
     "lint": "eslint src/",
     "stryker": "stryker run",
