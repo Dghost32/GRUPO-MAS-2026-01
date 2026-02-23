@@ -1,0 +1,10 @@
+{
+  "name": "@url-shortener/core",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "nanoid": "^5.1.5"
+  }
+}
