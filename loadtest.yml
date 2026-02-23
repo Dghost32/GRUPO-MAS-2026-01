@@ -1,0 +1,32 @@
+config:
+  target: "{{ $processEnvironment.API_URL }}"
+  phases:
+    - duration: 30
+      arrivalRate: 10
+      name: "Warm up"
+    - duration: 30
+      arrivalRate: 50
+      name: "Sustained load"
+  defaults:
+    headers:
+      Content-Type: "application/json"
+
+scenarios:
+  - name: "Create and redirect"
+    flow:
+      - post:
+          url: "/shorten"
+          json:
+            url: "https://example.com"
+          capture:
+            - json: "$.code"
+              as: "code"
+      - get:
+          url: "/{{ code }}"
+          followRedirect: false
+
+  - name: "Redirect only"
+    flow:
+      - get:
+          url: "/{{ $processEnvironment.TEST_CODE }}"
+          followRedirect: false
