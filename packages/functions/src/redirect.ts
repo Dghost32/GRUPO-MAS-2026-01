@@ -13,7 +13,7 @@ export const handler = withInstrumentation("redirect", async (event) => {
     return { statusCode: 404, body: JSON.stringify({ error: "Not found" }) };
   }
 
-  EventPublisher.publishClick({
+  await EventPublisher.publishClick({
     code,
     timestamp: Date.now(),
     userAgent: event.headers?.["user-agent"] || "unknown",

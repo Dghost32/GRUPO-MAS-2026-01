@@ -5,14 +5,12 @@ import type { ClickEvent } from "@url-shortener/core";
 const sns = new SNSClient();
 
 export const EventPublisher = {
-  publishClick(event: ClickEvent): void {
-    sns
-      .send(
-        new PublishCommand({
-          TopicArn: Resource.ClickTopic.arn,
-          Message: JSON.stringify(event),
-        })
-      )
-      .catch((err) => console.error("SNS publish failed:", err));
+  async publishClick(event: ClickEvent): Promise<void> {
+    await sns.send(
+      new PublishCommand({
+        TopicArn: Resource.ClickTopic.arn,
+        Message: JSON.stringify(event),
+      })
+    );
   },
 };
