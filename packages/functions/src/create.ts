@@ -1,38 +1,37 @@
-import { generateCode, isValidUrl } from "@url-shortener/core";
-import { UrlStore } from "./lib/url-store.js";
-import { withInstrumentation } from "./lib/handler.js";
+import { generateCode, isValidUrl } from '@url-shortener/core';
+import { UrlStore } from './lib/url-store.js';
+import { withInstrumentation, type ApiGatewayEvent } from './lib/handler.js';
 
-const CODE_REGEX = /^[A-Za-z0-9_-]+$/;
-
-export const handler = withInstrumentation("create", async (event: any) => {
+export const handler = withInstrumentation('create', async (raw) => {
+  const event = raw as ApiGatewayEvent;
   let body: { url?: string };
   try {
-    body = JSON.parse(event.body || "{}");
+    body = JSON.parse(event.body ?? '{}') as { url?: string };
   } catch {
     return {
       statusCode: 400,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Invalid JSON body" }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Invalid JSON body' }),
     };
   }
 
   const { url } = body;
 
-  if (!url || !isValidUrl(url)) {
+  if (url === undefined || url === '' || !isValidUrl(url)) {
     return {
       statusCode: 400,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Invalid URL" }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Invalid URL' }),
     };
   }
 
   const code = generateCode();
-  const domain = event.requestContext?.domainName || "localhost";
+  const domain = event.requestContext?.domainName ?? 'localhost';
   await UrlStore.save(code, url);
 
   return {
     statusCode: 201,
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ shortUrl: `https://${domain}/${code}`, code }),
   };
 });
