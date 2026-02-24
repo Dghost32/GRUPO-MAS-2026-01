@@ -16,6 +16,7 @@ export const UrlStore = {
       new PutCommand({
         TableName: Resource.UrlTable.name,
         Item: { code, originalUrl, createdAt: Date.now() },
+        ConditionExpression: "attribute_not_exists(code)",
       })
     );
   },

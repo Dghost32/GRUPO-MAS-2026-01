@@ -1,16 +1,43 @@
 import { UrlStore } from "./lib/url-store.js";
 import { EventPublisher } from "./lib/event-publisher.js";
-import { withInstrumentation } from "./lib/handler.js";
+import { withInstrumentation, type LambdaResponse } from "./lib/handler.js";
 
-export const handler = withInstrumentation("redirect", async (event) => {
+const CODE_REGEX = /^[A-Za-z0-9_-]{1,20}$/;
+
+export const handler = withInstrumentation("redirect", async (event: any): Promise<LambdaResponse> => {
   const code = event.pathParameters?.code;
-  if (!code) {
-    return { statusCode: 400, body: JSON.stringify({ error: "Missing code" }) };
+  if (!code || !CODE_REGEX.test(code)) {
+    return {
+      statusCode: 400,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Invalid code" }),
+    };
   }
 
   const record = await UrlStore.findByCode(code);
   if (!record) {
-    return { statusCode: 404, body: JSON.stringify({ error: "Not found" }) };
+    return {
+      statusCode: 404,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Not found" }),
+    };
+  }
+
+  // Validate stored URL scheme before redirecting (defense-in-depth)
+  let isValidScheme = false;
+  try {
+    const parsed = new URL(record.originalUrl);
+    isValidScheme = parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    // invalid URL in DB
+  }
+
+  if (!isValidScheme) {
+    return {
+      statusCode: 400,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Invalid redirect target" }),
+    };
   }
 
   await EventPublisher.publishClick({
@@ -22,7 +49,12 @@ export const handler = withInstrumentation("redirect", async (event) => {
 
   return {
     statusCode: 302,
-    headers: { Location: record.originalUrl },
+    headers: {
+      Location: record.originalUrl,
+      "Cache-Control": "no-cache, no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+    },
     body: "",
   };
 });

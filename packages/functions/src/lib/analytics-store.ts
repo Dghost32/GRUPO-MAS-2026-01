@@ -17,7 +17,7 @@ export const AnalyticsStore = {
     );
   },
 
-  async findByCode(code: string): Promise<ClickRecord[]> {
+  async findByCode(code: string, limit = 10): Promise<ClickRecord[]> {
     const result = await client.send(
       new QueryCommand({
         TableName: Resource.AnalyticsTable.name,
@@ -25,8 +25,22 @@ export const AnalyticsStore = {
         KeyConditionExpression: "code = :code",
         ExpressionAttributeValues: { ":code": code },
         ScanIndexForward: false,
+        Limit: limit,
       })
     );
     return (result.Items as ClickRecord[]) || [];
+  },
+
+  async countByCode(code: string): Promise<number> {
+    const result = await client.send(
+      new QueryCommand({
+        TableName: Resource.AnalyticsTable.name,
+        IndexName: "codeIndex",
+        KeyConditionExpression: "code = :code",
+        ExpressionAttributeValues: { ":code": code },
+        Select: "COUNT",
+      })
+    );
+    return result.Count || 0;
   },
 };
