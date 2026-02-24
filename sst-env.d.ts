@@ -6,6 +6,26 @@
 
 declare module "sst" {
   export interface Resource {
+    "AnalyticsTable": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
+    "Api": {
+      "type": "sst.aws.ApiGatewayV2"
+      "url": string
+    }
+    "ClickTopic": {
+      "arn": string
+      "type": "sst.aws.SnsTopic"
+    }
+    "TrackDLQ": {
+      "type": "sst.aws.Queue"
+      "url": string
+    }
+    "UrlTable": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
   }
 }
 /// <reference path="sst-env.d.ts" />
